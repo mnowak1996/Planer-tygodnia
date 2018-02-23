@@ -7,9 +7,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 import java.io.*;
 import java.util.Observable;
+import java.util.Scanner;
 
 
 public class PlanerFX {
@@ -35,7 +38,7 @@ public class PlanerFX {
     }
 
     @FXML
-    private void Podglad() throws IOException {
+    private void PodgladIEdycja() throws IOException {
         dzialanienaplikach("Podglad");
 
     }
@@ -44,12 +47,14 @@ public class PlanerFX {
     private void usun() throws IOException {
         dzialanienaplikach("Usun");
     }
-
     @FXML
-    private void edytuj() throws IOException {
-        dzialanienaplikach("Edytuj");
+    private void czyszczenie() throws IOException {
+        textArea.setText("");
+        dzialanienaplikach("Podglad");
     }
-    private String poprzedniText;
+
+
+
 
     private void dzialanienaplikach(String a) throws IOException {
         String dzien = String.valueOf(comboBox.getValue());
@@ -80,8 +85,9 @@ public class PlanerFX {
                 OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
                 BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
                         try {
-                            bufferedWriter.write(text);
+                            bufferedWriter.write(text+"\n");
                             bufferedWriter.close();
+                            label.setTextFill(Color.GREEN);
                             label.setText("Zapisano");
                         } catch (IOException ex) {
                             System.out.print("Wystąpil blad zapisu");
@@ -90,25 +96,11 @@ public class PlanerFX {
 
             } else if (a == "Podglad")                                                         // odczyt pliku
             {
+                /*
                 FileReader fileReader = new FileReader(file);
                 BufferedReader bufferedReader = new BufferedReader(fileReader);
                 try {
 
-                    textArea.setText(bufferedReader.readLine());
-                    textArea.setEditable(false);
-                    bufferedReader.close();
-
-                } catch (IOException ex) {
-                    System.out.print("Problem z otworzeniem pliku");
-                }
-                poprzedniText=textArea.getText();
-                System.out.print(poprzedniText);
-                System.out.print(comboBox.getValue());
-            } else if (a == "Edytuj") {
-                FileReader fileReader = new FileReader(file);
-                BufferedReader bufferedReader = new BufferedReader(fileReader);
-                try {
-                    textArea.setEditable(true);
                     textArea.setText(bufferedReader.readLine());
                     bufferedReader.close();
 
@@ -116,19 +108,20 @@ public class PlanerFX {
                     System.out.print("Problem z otworzeniem pliku");
                 }
 
-            } else if (a == "Usun") {
-                FileOutputStream fileOutputStream = new FileOutputStream(file);
-                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
-                BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
-                try {
-                    bufferedWriter.write("");
-                    bufferedWriter.close();
-                    textArea.setText("");
-                    label.setText("Usunięto");
-                } catch (IOException ex) {
-                    System.out.print("Problem z zapisem pliku");
-                }
+                System.out.print(comboBox.getValue());*/
 
+                Scanner scanner = new Scanner(file);
+                String s="";
+                while(scanner.hasNextLine()){
+                    s = s +scanner.nextLine()+"\n";
+                }
+                textArea.setText(s);
+
+            }
+            else if (a == "Usun") {
+                textArea.setText("");
+                label.setTextFill(Color.RED);
+                label.setText("Usunięto");
             }
         } else {
             label.setText("Nie wybrales dnia");

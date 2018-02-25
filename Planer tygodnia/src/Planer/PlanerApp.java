@@ -8,6 +8,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 
+/**
+ * Created by MIchał Nowak
+ */
+
 public class PlanerApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {

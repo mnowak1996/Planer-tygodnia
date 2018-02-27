@@ -97,9 +97,12 @@ public class PlanerFX {
             label.setText("");
             String text = textArea.getText();
             if (akcja == "Zapisz") {                    //zapis do pilku
-                FileOutputStream fileOutputStream = new FileOutputStream(file);
-                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
-                BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
+                FileOutputStream fileOutputStream = new FileOutputStream(file);      // otworzenie
+                // strumienia przesyłającego znaki w postaci bajtowej
+                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream); // tłumacz pliku na
+                // postać bajtową
+                BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter); // obiekt odpowiedzialny
+                // za wysyłanie znaków
                 try {
                     bufferedWriter.write(text+"\n");
                     bufferedWriter.close();
@@ -111,7 +114,7 @@ public class PlanerFX {
             } else if (akcja == "Podglad")              // odczyt pliku
             {
                 Scanner scanner = new Scanner(file);    // utworzenie obiektu typu Scanner i przkazanie w konstruktorze
-                                                        // scieżki do pliku
+                                                        // pliku
                 String s="";                            // wstępna inicjalizacja pola typu String
                 while(scanner.hasNextLine()){           // pętla w której łańcuch znaków jest powiększany do
                                                         // ilości znaków w pliku tekstowym
